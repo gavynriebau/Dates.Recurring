@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Dates.Recurring</id>
+    <version>$version$</version>
+    <title>Dates.Recurring</title>
+    <authors>Gavyn Riebau</authors>
+    <owners>Gavyn Riebau</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/gavynriebau/Dates.Recurring</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easily calculate the next recurrence for recurring dates using a fluent syntax</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Dates Recurring Repeating Recur Repeat System.DateTime Schedule</tags>
+  </metadata>
+</package>
