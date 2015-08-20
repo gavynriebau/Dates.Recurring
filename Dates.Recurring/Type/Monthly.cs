@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dates.Recurring.Extensions;
 using Humanizer;
 
 namespace Dates.Recurring.Type
@@ -21,12 +20,12 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
 
-            if (after.WithoutTimeComponents() < Starting.WithoutTimeComponents())
+            if (after.Date < Starting.Date)
             {
                 after = Starting - 1.Days();
             }
 
-            while (next.WithoutTimeComponents() <= after.WithoutTimeComponents() || !DayOfMonthMatched(next))
+            while (next.Date <= after.Date || !DayOfMonthMatched(next))
             {
                 int dayOfMonth = Math.Min(DayOfMonth, DateTime.DaysInMonth(next.Year, next.Month));
 
@@ -44,7 +43,7 @@ namespace Dates.Recurring.Type
                 }
             }
 
-            if (Ending.HasValue && next.WithoutTimeComponents() >= Ending.Value.WithoutTimeComponents())
+            if (Ending.HasValue && next.Date >= Ending.Value.Date)
             {
                 return null;
             }

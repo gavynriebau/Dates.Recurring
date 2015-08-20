@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Humanizer;
-using Dates.Recurring.Extensions;
 
 namespace Dates.Recurring.Type
 {
@@ -23,12 +22,12 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
 
-            if (after.WithoutTimeComponents() < Starting.WithoutTimeComponents())
+            if (after.Date < Starting.Date)
             {
                 after = Starting - 1.Days();
             }
 
-            while (next.WithoutTimeComponents() <= after.WithoutTimeComponents() || !MonthMatched(next) || !DayOfMonthMatched(next))
+            while (next.Date <= after.Date || !MonthMatched(next) || !DayOfMonthMatched(next))
             {
                 if (!MonthMatched(next))
                 {
@@ -71,7 +70,7 @@ namespace Dates.Recurring.Type
                 }
             }
 
-            if (Ending.HasValue && next.WithoutTimeComponents() >= Ending.Value.WithoutTimeComponents())
+            if (Ending.HasValue && next.Date >= Ending.Value.Date)
             {
                 return null;
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dates.Recurring.Extensions;
 using Humanizer;
 
 namespace Dates.Recurring.Type
@@ -21,12 +20,12 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
 
-            if (after.WithoutTimeComponents() < Starting.WithoutTimeComponents())
+            if (after.Date < Starting.Date)
             {
                 after = Starting - 1.Days();
             }
 
-            while (next.WithoutTimeComponents() <= after.WithoutTimeComponents() || !DayOfWeekMatched(next.DayOfWeek))
+            while (next.Date <= after.Date || !DayOfWeekMatched(next.DayOfWeek))
             {
                 if (next.DayOfWeek != DayOfWeek.Saturday)
                 {
@@ -47,7 +46,7 @@ namespace Dates.Recurring.Type
                 }
             }
 
-            if (Ending.HasValue && next.WithoutTimeComponents() > Ending.Value.WithoutTimeComponents())
+            if (Ending.HasValue && next.Date > Ending.Value.Date)
             {
                 return null;
             }
