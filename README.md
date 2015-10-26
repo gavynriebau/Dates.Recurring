@@ -15,16 +15,16 @@ Uses a fluent syntax.
 ```csharp
 // Daily recurrences
 var daily = Recurs
-		.Starting(new DateTime(2015, 1, 1))
+	.Starting(new DateTime(2015, 1, 1))
     .Every(1)
     .Days()
     .Ending(new DateTime(2015, 1, 15))
     .Build();
 
-daily.Next(new DateTime(2014, 7, 3));		// 2015/01/01
-daily.Next(new DateTime(2015, 1, 1));		// 2015/01/02
-daily.Next(new DateTime(2015, 1, 2));		// 2015/01/03
-daily.Next(new DateTime(2015, 1, 15));	// null
+daily.Next(new DateTime(2014, 7, 3));  // 2015/01/01
+daily.Next(new DateTime(2015, 1, 1));  // 2015/01/02
+daily.Next(new DateTime(2015, 1, 2));  // 2015/01/03
+daily.Next(new DateTime(2015, 1, 15)); // null
 
 // Weekly recurrences
 var weekly = Recurs
@@ -35,10 +35,10 @@ var weekly = Recurs
     .Ending(new DateTime(2015, 2, 19))
     .Build();
 
-weekly.Next(new DateTime(2014, 1, 1);		// 2015/01/02
-weekly.Next(new DateTime(2015, 1, 2);		// 2015/01/06
-weekly.Next(new DateTime(2014, 1, 6);		// 2015/01/09
-weekly.Next(new DateTime(2014, 1, 9);		// 2015/01/13
+weekly.Next(new DateTime(2014, 1, 1);  // 2015/01/02
+weekly.Next(new DateTime(2015, 1, 2);  // 2015/01/06
+weekly.Next(new DateTime(2014, 1, 6);  // 2015/01/09
+weekly.Next(new DateTime(2014, 1, 9);  // 2015/01/13
 
 // Monthly recurrences
 var monthly = Recurs
