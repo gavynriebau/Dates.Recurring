@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Dates.Recurring.Tests
 {
-    [TestFixture]
     public class WeeklyRecurrenceTests
     {
-        [Test]
+        [Fact]
         public void Weekly_EveryWeek()
         {
             // Arrange.
@@ -25,14 +24,14 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(weekly.Next(new DateTime(2014, 1, 1)), Is.EqualTo(new DateTime(2015, 1, 2)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 2)), Is.EqualTo(new DateTime(2015, 1, 6)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 6)), Is.EqualTo(new DateTime(2015, 1, 9)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 9)), Is.EqualTo(new DateTime(2015, 1, 13)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 13)), Is.EqualTo(new DateTime(2015, 1, 16)));
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 6), weekly.Next(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 9), weekly.Next(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 13), weekly.Next(new DateTime(2015, 1, 9)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Next(new DateTime(2015, 1, 13)));
         }
 
-        [Test]
+        [Fact]
         public void Weekly_EveryThirdWeek()
         {
             // Arrange.
@@ -47,13 +46,13 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(weekly.Next(new DateTime(2014, 1, 1)), Is.EqualTo(new DateTime(2015, 1, 2)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 2)), Is.EqualTo(new DateTime(2015, 1, 20)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 21)), Is.EqualTo(new DateTime(2015, 1, 23)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 23)), Is.EqualTo(new DateTime(2015, 2, 10)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 24)), Is.EqualTo(new DateTime(2015, 2, 10)));
-            Assert.That(weekly.Next(new DateTime(2015, 1, 27)), Is.EqualTo(new DateTime(2015, 2, 10)));
-            Assert.That(weekly.Next(new DateTime(2015, 2, 10)), Is.EqualTo(new DateTime(2015, 2, 13)));
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 20), weekly.Next(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 23), weekly.Next(new DateTime(2015, 1, 21)));
+            Assert.Equal(new DateTime(2015, 2, 10), weekly.Next(new DateTime(2015, 1, 23)));
+            Assert.Equal(new DateTime(2015, 2, 10), weekly.Next(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 2, 10), weekly.Next(new DateTime(2015, 1, 27)));
+            Assert.Equal(new DateTime(2015, 2, 13), weekly.Next(new DateTime(2015, 2, 10)));
         }
     }
 }

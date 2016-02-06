@@ -1,17 +1,16 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    [TestFixture]
     public class MonthlyRecurrenceTests
     {
 
-        [Test]
+        [Fact]
         public void Monthly_EveryMonth()
         {
             // Arrange.
@@ -26,16 +25,16 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(monthly.Next(new DateTime(2014, 4, 8)), Is.EqualTo(new DateTime(2015, 1, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 1, 24)), Is.EqualTo(new DateTime(2015, 2, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 23)), Is.EqualTo(new DateTime(2015, 2, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 24)), Is.EqualTo(new DateTime(2015, 3, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 25)), Is.EqualTo(new DateTime(2015, 3, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 6, 3)), Is.EqualTo(new DateTime(2015, 6, 24)));
-            Assert.That(monthly.Next(new DateTime(2016, 6, 3)), Is.Null);
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Next(new DateTime(2014, 4, 8)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Next(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Next(new DateTime(2015, 2, 23)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Next(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Next(new DateTime(2015, 2, 25)));
+            Assert.Equal(new DateTime(2015, 6, 24), monthly.Next(new DateTime(2015, 6, 3)));
+            Assert.Null(monthly.Next(new DateTime(2016, 6, 3)));
         }
 
-        [Test]
+        [Fact]
         public void Monthly_EveryThirdMonth()
         {
             // Arrange.
@@ -50,17 +49,17 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(monthly.Next(new DateTime(2014, 2, 1)), Is.EqualTo(new DateTime(2015, 1, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 1, 24)), Is.EqualTo(new DateTime(2015, 4, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 1, 25)), Is.EqualTo(new DateTime(2015, 4, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 1)), Is.EqualTo(new DateTime(2015, 4, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 17)), Is.EqualTo(new DateTime(2015, 4, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 4, 23)), Is.EqualTo(new DateTime(2015, 4, 24)));
-            Assert.That(monthly.Next(new DateTime(2015, 4, 24)), Is.EqualTo(new DateTime(2015, 7, 24)));
-            Assert.That(monthly.Next(new DateTime(2016, 6, 3)), Is.Null);
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Next(new DateTime(2014, 2, 1)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 2, 17)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 4, 23)));
+            Assert.Equal(new DateTime(2015, 7, 24), monthly.Next(new DateTime(2015, 4, 24)));
+            Assert.Null(monthly.Next(new DateTime(2016, 6, 3)));
         }
 
-        [Test]
+        [Fact]
         public void Monthly_EveryMonth_DifferentDaysInMonths()
         {
             // Arrange.
@@ -75,13 +74,13 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(monthly.Next(new DateTime(2014, 2, 1)), Is.EqualTo(new DateTime(2015, 1, 31)));
-            Assert.That(monthly.Next(new DateTime(2015, 1, 30)), Is.EqualTo(new DateTime(2015, 1, 31)));
-            Assert.That(monthly.Next(new DateTime(2015, 1, 31)), Is.EqualTo(new DateTime(2015, 2, 28)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 27)), Is.EqualTo(new DateTime(2015, 2, 28)));
-            Assert.That(monthly.Next(new DateTime(2015, 2, 28)), Is.EqualTo(new DateTime(2015, 3, 31)));
-            Assert.That(monthly.Next(new DateTime(2015, 3, 31)), Is.EqualTo(new DateTime(2015, 4, 30)));
-            Assert.That(monthly.Next(new DateTime(2016, 6, 3)), Is.Null);
+            Assert.Equal(new DateTime(2015, 1, 31), monthly.Next(new DateTime(2014, 2, 1)));
+            Assert.Equal(new DateTime(2015, 1, 31), monthly.Next(new DateTime(2015, 1, 30)));
+            Assert.Equal(new DateTime(2015, 2, 28), monthly.Next(new DateTime(2015, 1, 31)));
+            Assert.Equal(new DateTime(2015, 2, 28), monthly.Next(new DateTime(2015, 2, 27)));
+            Assert.Equal(new DateTime(2015, 3, 31), monthly.Next(new DateTime(2015, 2, 28)));
+            Assert.Equal(new DateTime(2015, 4, 30), monthly.Next(new DateTime(2015, 3, 31)));
+            Assert.Null(monthly.Next(new DateTime(2016, 6, 3)));
         }
 
     }

@@ -1,16 +1,16 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    [TestFixture]
+    
     public class DailyRecurrenceTests
     {
-        [Test]
+        [Fact]
         public void Daily_EveryDay()
         {
             // Arrange.
@@ -24,13 +24,13 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(daily.Next(new DateTime(2014, 7, 3)), Is.EqualTo(new DateTime(2015, 1, 1)));
-            Assert.That(daily.Next(new DateTime(2015, 1, 1)), Is.EqualTo(new DateTime(2015, 1, 2)));
-            Assert.That(daily.Next(new DateTime(2015, 1, 2)), Is.EqualTo(new DateTime(2015, 1, 3)));
-            Assert.That(daily.Next(new DateTime(2015, 1, 15)), Is.Null);
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Next(new DateTime(2014, 7, 3)));
+            Assert.Equal(new DateTime(2015, 1, 2), daily.Next(new DateTime(2015, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 3), daily.Next(new DateTime(2015, 1, 2)));
+            Assert.Null(daily.Next(new DateTime(2015, 1, 15)));
         }
 
-        [Test]
+        [Fact]
         public void Daily_EveryThirdDay()
         {
             // Arrange.
@@ -43,9 +43,9 @@ namespace Dates.Recurring.Tests
             // Act.
 
             // Assert.
-            Assert.That(daily.Next(new DateTime(2014, 7, 3)), Is.EqualTo(new DateTime(2015, 1, 1)));
-            Assert.That(daily.Next(new DateTime(2015, 1, 1)), Is.EqualTo(new DateTime(2015, 1, 4)));
-            Assert.That(daily.Next(new DateTime(2015, 1, 5)), Is.EqualTo(new DateTime(2015, 1, 7)));
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Next(new DateTime(2014, 7, 3)));
+            Assert.Equal(new DateTime(2015, 1, 4), daily.Next(new DateTime(2015, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 7), daily.Next(new DateTime(2015, 1, 5)));
         }
 
     }
