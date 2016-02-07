@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dates.Recurring.Type;
 
 namespace Dates.Recurring.Tests
 {
@@ -13,7 +14,7 @@ namespace Dates.Recurring.Tests
         public void Weekly_EveryWeek()
         {
             // Arrange.
-            var weekly = Recurs
+            IRecurring weekly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Weeks()
@@ -35,7 +36,7 @@ namespace Dates.Recurring.Tests
         public void Weekly_EveryThirdWeek()
         {
             // Arrange.
-            var weekly = Recurs
+            IRecurring weekly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(3)
                 .Weeks()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dates.Recurring.Type;
 
 namespace Dates.Recurring.Tests
 {
@@ -14,7 +15,7 @@ namespace Dates.Recurring.Tests
         public void Yearly_EveryYear()
         {
             // Arrange.
-            var yearly = Recurs
+            IRecurring yearly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Years()
@@ -48,7 +49,7 @@ namespace Dates.Recurring.Tests
         public void Yearly_EveryThirdYear()
         {
             // Arrange.
-            var yearly = Recurs
+            IRecurring yearly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(3)
                 .Years()
@@ -84,7 +85,7 @@ namespace Dates.Recurring.Tests
         public void Yearly_EveryYear_DifferentDaysInMonth()
         {
             // Arrange.
-            var yearly = Recurs
+            IRecurring yearly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Years()

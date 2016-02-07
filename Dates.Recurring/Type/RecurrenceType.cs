@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dates.Recurring.Type
 {
-    public abstract class RecurrenceType
+    public abstract class RecurrenceType : IRecurring
     {
         protected int X { get; set; }
         protected DateTime Starting { get; set; }
