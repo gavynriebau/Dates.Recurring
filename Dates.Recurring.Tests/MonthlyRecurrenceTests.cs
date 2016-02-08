@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dates.Recurring.Type;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Dates.Recurring.Tests
         public void Monthly_EveryMonth()
         {
             // Arrange.
-            var monthly = Recurs
+            IRecurring monthly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Months()
@@ -38,7 +39,7 @@ namespace Dates.Recurring.Tests
         public void Monthly_EveryThirdMonth()
         {
             // Arrange.
-            var monthly = Recurs
+            IRecurring monthly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(3)
                 .Months()
@@ -63,7 +64,7 @@ namespace Dates.Recurring.Tests
         public void Monthly_EveryMonth_DifferentDaysInMonths()
         {
             // Arrange.
-            var monthly = Recurs
+            IRecurring monthly = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Months()

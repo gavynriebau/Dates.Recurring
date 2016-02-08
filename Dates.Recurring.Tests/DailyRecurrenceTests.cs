@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dates.Recurring.Type;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Dates.Recurring.Tests
         public void Daily_EveryDay()
         {
             // Arrange.
-            var daily = Recurs
+            IRecurring daily = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(1)
                 .Days()
@@ -34,7 +35,7 @@ namespace Dates.Recurring.Tests
         public void Daily_EveryThirdDay()
         {
             // Arrange.
-            var daily = Recurs
+            IRecurring daily = Recurs
                 .Starting(new DateTime(2015, 1, 1))
                 .Every(3)
                 .Days()

@@ -27,9 +27,38 @@ namespace Dates.Recurring.Builders
             return this;
         }
 
-        public WeeksBuilder On(Day days)
+        public WeeksBuilder OnDays(Day days)
         {
             _days = days;
+            return this;
+        }
+
+        public WeeksBuilder OnDay(DayOfWeek day)
+        {
+            switch(day)
+            {
+                case DayOfWeek.Sunday:
+                    _days = Day.SUNDAY;
+                    break;
+                case DayOfWeek.Monday:
+                    _days = Day.MONDAY;
+                    break;
+                case DayOfWeek.Tuesday:
+                    _days = Day.TUESDAY;
+                    break;
+                case DayOfWeek.Wednesday:
+                    _days = Day.WEDNESDAY;
+                    break;
+                case DayOfWeek.Thursday:
+                    _days = Day.THURSDAY;
+                    break;
+                case DayOfWeek.Friday:
+                    _days = Day.FRIDAY;
+                    break;
+                case DayOfWeek.Saturday:
+                    _days = Day.SATURDAY;
+                    break;
+            }
             return this;
         }
 

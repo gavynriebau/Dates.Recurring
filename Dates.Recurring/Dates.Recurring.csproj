@@ -60,6 +60,7 @@
     <Compile Include="Recurs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Type\Daily.cs" />
+    <Compile Include="Type\IRecurring.cs" />
     <Compile Include="Type\Monthly.cs" />
     <Compile Include="Type\RecurrenceType.cs" />
     <Compile Include="Type\Weekly.cs" />
