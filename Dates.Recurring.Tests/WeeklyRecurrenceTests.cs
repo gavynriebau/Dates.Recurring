@@ -66,7 +66,7 @@ namespace Dates.Recurring.Tests
                 .Starting(startDate)
                 .Every(1)
                 .Weeks()
-                .OnDay(startDate.AddDays(2).DayOfWeek)
+                .OnDay(DayOfWeek.Saturday)
                 .Ending(new DateTime(2015, 2, 19))
                 .Build();
 
