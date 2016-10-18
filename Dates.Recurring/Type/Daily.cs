@@ -22,7 +22,7 @@ namespace Dates.Recurring.Type
                 after = Starting - 1.Days();
             }
 
-            while (next.Date <= after.Date)
+            while ((next.Ticks - after.Ticks) <= TimeSpan.TicksPerSecond)
             {
                 next = next.AddDays(X);
             }
