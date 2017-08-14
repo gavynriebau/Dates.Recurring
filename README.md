@@ -15,7 +15,7 @@ Uses a fluent syntax.
 ```csharp
 // Daily recurrences
 var daily = Recurs
-	.Starting(new DateTime(2015, 1, 1))
+    .Starting(new DateTime(2015, 1, 1))
     .Every(1)
     .Days()
     .Ending(new DateTime(2015, 1, 15))
@@ -56,13 +56,13 @@ monthly.Next(new DateTime(2015, 2, 10); // 2015/03/24
 
 // Yearly recurrences
 var yearly = Recurs
-		.Starting(new DateTime(2015, 1, 1))
-		.Every(1)
-		.Years()
-		.OnDay(24)
-		.OnMonths(Month.JANUARY | Month.FEBRUARY | Month.AUGUST)
-		.Ending(new DateTime(2020, 1, 1))
-		.Build();
+    .Starting(new DateTime(2015, 1, 1))
+    .Every(1)
+    .Years()
+    .OnDay(24)
+    .OnMonths(Month.JANUARY | Month.FEBRUARY | Month.AUGUST)
+    .Ending(new DateTime(2020, 1, 1))
+    .Build();
 
 yearly.Next(new DateTime(2014, 1, 1));	// 2015/01/24
 yearly.Next(new DateTime(2015, 1, 1)); 	// 2015/01/24
