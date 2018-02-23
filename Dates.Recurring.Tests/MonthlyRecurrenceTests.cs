@@ -85,7 +85,7 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring monthly = Recurs
-                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Starting(new DateTime(2018, 1, 1)) // Monday
                 .Every(1)
                 .Months()
                 .OnOrdinalWeek(Ordinal.SECOND)
@@ -108,7 +108,7 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring monthly = Recurs
-                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Starting(new DateTime(2018, 1, 1)) // Monday
                 .Every(3)
                 .Months()
                 .OnOrdinalWeek(Ordinal.SECOND)
@@ -131,7 +131,7 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring monthly = Recurs
-                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Starting(new DateTime(2018, 1, 1)) // Monday
                 .Every(1)
                 .Months()
                 .OnOrdinalWeek(Ordinal.LAST)

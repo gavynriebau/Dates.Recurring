@@ -3,3 +3,4 @@ packages/
 **/obj/*
 *.vspscc
 *.suo
+.vs/
