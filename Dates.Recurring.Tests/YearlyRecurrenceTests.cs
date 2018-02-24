@@ -1,10 +1,6 @@
-﻿using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Dates.Recurring.Type;
+using Xunit;
 
 namespace Dates.Recurring.Tests
 {
@@ -134,6 +130,84 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2017, 3, 24), yearly.Next(new DateTime(2016, 3, 24)));
             Assert.Equal(new DateTime(2017, 3, 24), yearly.Next(new DateTime(2016, 4, 24)));
             Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+        }
+
+        [Fact]
+        public void Yearly_EveryYear_Ordinal()
+        {
+            // Arrange.
+            var startDate = new DateTime(2018, 1, 1);
+
+            IRecurring yearly = Recurs
+                .Starting(startDate)
+                .Every(1)
+                .Years()
+                .OnOrdinalWeek(Ordinal.THIRD)
+                .OnDay(DayOfWeek.Thursday)
+                .OnMonths(Month.JANUARY)
+                .Ending(new DateTime(2030, 1, 1))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2019, 1, 17), yearly.Next(new DateTime(2018, 1, 18)));
+            Assert.Equal(new DateTime(2020, 1, 16), yearly.Next(new DateTime(2019, 2, 18)));
+            Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
+        }
+
+        [Fact]
+        public void Yearly_EveryThirdYear_Ordinal()
+        {
+            // Arrange.
+            var startDate = new DateTime(2018, 1, 1);
+
+            IRecurring yearly = Recurs
+                .Starting(startDate)
+                .Every(3)
+                .Years()
+                .OnOrdinalWeek(Ordinal.THIRD)
+                .OnDay(DayOfWeek.Thursday)
+                .OnMonths(Month.JANUARY)
+                .Ending(new DateTime(2030, 1, 1))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2021, 1, 21), yearly.Next(new DateTime(2018, 1, 18)));
+            Assert.Equal(new DateTime(2024, 1, 18), yearly.Next(new DateTime(2021, 2, 18)));
+            Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
+        }
+
+        [Fact]
+        public void Yearly_MultipleMonths_Ordinal()
+        {
+            // Arrange.
+            var startDate = new DateTime(2018, 1, 1);
+
+            IRecurring yearly = Recurs
+                .Starting(startDate)
+                .Every(1)
+                .Years()
+                .OnOrdinalWeek(Ordinal.THIRD)
+                .OnDay(DayOfWeek.Thursday)
+                .OnMonths(Month.JANUARY | Month.APRIL)
+                .Ending(new DateTime(2030, 1, 1))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2018, 4, 19), yearly.Next(new DateTime(2018, 1, 18)));
+            Assert.Equal(new DateTime(2019, 1, 17), yearly.Next(new DateTime(2018, 4, 19)));
+            Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
         }
     }
 }

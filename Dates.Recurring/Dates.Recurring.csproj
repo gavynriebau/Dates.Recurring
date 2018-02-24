@@ -55,6 +55,7 @@
     <Compile Include="Builders\StartingBuilder.cs" />
     <Compile Include="Builders\WeeksBuilder.cs" />
     <Compile Include="Builders\YearsBuilder.cs" />
+    <Compile Include="Enums\Ordinal.cs" />
     <Compile Include="Enums\Day.cs" />
     <Compile Include="Enums\Month.cs" />
     <Compile Include="Recurs.cs" />

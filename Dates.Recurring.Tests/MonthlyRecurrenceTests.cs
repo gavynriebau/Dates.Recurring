@@ -1,9 +1,5 @@
-﻿using Dates.Recurring.Type;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Dates.Recurring.Type;
 using Xunit;
 
 namespace Dates.Recurring.Tests
@@ -84,6 +80,75 @@ namespace Dates.Recurring.Tests
             Assert.Null(monthly.Next(new DateTime(2016, 6, 3)));
         }
 
+        [Fact]
+        public void Monthly_EveryMonth_Ordinal()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Every(1)
+                .Months()
+                .OnOrdinalWeek(Ordinal.SECOND)
+                .OnDay(DayOfWeek.Friday)
+                .Ending(new DateTime(2018, 12, 25))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2017, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2018, 2, 9), monthly.Next(new DateTime(2018, 2, 1)));
+            Assert.Equal(new DateTime(2018, 9, 14), monthly.Next(new DateTime(2018, 9, 1)));
+            Assert.Null(monthly.Next(new DateTime(2020, 2, 1)));
+        }
+
+        [Fact]
+        public void Monthly_EveryThirdMonth_Ordinal()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Every(3)
+                .Months()
+                .OnOrdinalWeek(Ordinal.SECOND)
+                .OnDay(DayOfWeek.Friday)
+                .Ending(new DateTime(2018, 12, 25))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2017, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2018, 4, 13), monthly.Next(new DateTime(2018, 1, 12)));
+            Assert.Equal(new DateTime(2018, 4, 13), monthly.Next(new DateTime(2018, 4, 1)));
+            Assert.Null(monthly.Next(new DateTime(2020, 2, 1)));
+        }
+
+        [Fact]
+        public void Monthly_EveryMonth_Ordinal_LastWeek()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2018, 1, 1))// Monday
+                .Every(1)
+                .Months()
+                .OnOrdinalWeek(Ordinal.LAST)
+                .OnDay(DayOfWeek.Wednesday)
+                .Ending(new DateTime(2018, 12, 25))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2017, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 1, 31)));
+            Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 2, 1)));
+            Assert.Equal(new DateTime(2018, 4, 25), monthly.Next(new DateTime(2018, 4, 1)));
+            Assert.Null(monthly.Next(new DateTime(2020, 2, 1)));
+        }
     }
 }
 

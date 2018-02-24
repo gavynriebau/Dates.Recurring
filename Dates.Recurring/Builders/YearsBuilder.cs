@@ -1,17 +1,15 @@
-﻿using Dates.Recurring.Type;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Dates.Recurring.Type;
 
 namespace Dates.Recurring.Builders
 {
     public class YearsBuilder
     {
         private int _skipYears;
-        private int _dayOfMonth = 1;
+        private int? _dayOfMonth;
         private Month _month = Month.JANUARY;
+        private Ordinal? _ordinalWeek;
+        private DayOfWeek? _dayOfWeek;
         private DateTime _starting;
         private DateTime? _ending;
 
@@ -39,9 +37,21 @@ namespace Dates.Recurring.Builders
             return this;
         }
 
+        public YearsBuilder OnOrdinalWeek(Ordinal ordinalWeek)
+        {
+            _ordinalWeek = ordinalWeek;
+            return this;
+        }
+
+        public YearsBuilder OnDay(DayOfWeek dayOfWeek)
+        {
+            _dayOfWeek = dayOfWeek;
+            return this;
+        }
+
         public YearsBuilder OnMonth(DateTime dateTime)
         {
-            switch(dateTime.Month)
+            switch (dateTime.Month)
             {
                 case 1:
                     _month = Month.JANUARY;
@@ -85,7 +95,11 @@ namespace Dates.Recurring.Builders
 
         public Yearly Build()
         {
-            return new Yearly(_skipYears, _dayOfMonth, _month, _starting, _ending);
+            if (_dayOfMonth.HasValue)
+            {
+                return new Yearly(_skipYears, _dayOfMonth, _month, _starting, _ending);
+            }
+            return new Yearly(_skipYears, _ordinalWeek, _dayOfWeek, _month, _starting, _ending);
         }
     }
 }
