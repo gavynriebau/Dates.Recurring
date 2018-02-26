@@ -13,6 +13,7 @@ namespace Dates.Recurring.Builders
         private DateTime _starting;
         private DateTime? _ending;
         private Day _days;
+        private DayOfWeek _firstDayOfWeek = DayOfWeek.Sunday;
 
         public WeeksBuilder(int weeks, DateTime starting)
         {
@@ -62,9 +63,15 @@ namespace Dates.Recurring.Builders
             return this;
         }
 
+        public WeeksBuilder FirstDayOfWeek(DayOfWeek day)
+        {
+            _firstDayOfWeek = day;
+            return this;
+        }
+
         public Weekly Build()
         {
-            return new Weekly(_weeks, _starting, _ending, _days);
+            return new Weekly(_weeks, _starting, _ending, _days, _firstDayOfWeek);
         }
     }
 }
