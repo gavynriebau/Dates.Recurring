@@ -31,6 +31,7 @@ var weekly = Recurs
     .Starting(new DateTime(2015, 1, 1))
     .Every(1)
     .Weeks()
+	.FirstDayOfWeek(DayOfWeek.Monday)
     .OnDays(Day.TUESDAY | Day.FRIDAY)
     .Ending(new DateTime(2015, 2, 19))
     .Build();
