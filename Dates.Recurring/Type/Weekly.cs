@@ -10,10 +10,26 @@ namespace Dates.Recurring.Type
     public class Weekly : RecurrenceType
     {
         public Day Days { get; set; }
+        public DayOfWeek FirstDayOfWeek { get; set; }
+        private DayOfWeek LastDayOfWeek
+        {
+            get
+            {
+                if (this.FirstDayOfWeek == DayOfWeek.Sunday)
+                {
+                    return DayOfWeek.Saturday;
+                }
+                else
+                {
+                    return this.FirstDayOfWeek - 1;
+                }
+            }
+        }
 
-        public Weekly(int weeks, DateTime starting, DateTime? ending, Day days) : base(weeks, starting, ending)
+        public Weekly(int weeks, DateTime starting, DateTime? ending, Day days, DayOfWeek firstDayOfWeek) : base(weeks, starting, ending)
         {
             Days = days;
+            FirstDayOfWeek = firstDayOfWeek;
         }
 
         public override DateTime? Next(DateTime after)
@@ -27,7 +43,7 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfWeekMatched(next.DayOfWeek))
             {
-                if (next.DayOfWeek != DayOfWeek.Saturday)
+                if (next.DayOfWeek != LastDayOfWeek)
                 {
                     next = next + 1.Days();
                 }
@@ -37,7 +53,7 @@ namespace Dates.Recurring.Type
                     next = next + X.Weeks();
 
                     // Rewind to the first day of the week.
-                    int delta = DayOfWeek.Sunday - next.DayOfWeek;
+                    int delta = FirstDayOfWeek - next.DayOfWeek;
                     if (delta > 0)
                     {
                         delta -= 7;
