@@ -31,15 +31,15 @@ var weekly = Recurs
     .Starting(new DateTime(2015, 1, 1))
     .Every(1)
     .Weeks()
-	.FirstDayOfWeek(DayOfWeek.Monday)
+    .FirstDayOfWeek(DayOfWeek.Monday)
     .OnDays(Day.TUESDAY | Day.FRIDAY)
     .Ending(new DateTime(2015, 2, 19))
     .Build();
 
-weekly.Next(new DateTime(2014, 1, 1);  // 2015/01/02
-weekly.Next(new DateTime(2015, 1, 2);  // 2015/01/06
-weekly.Next(new DateTime(2014, 1, 6);  // 2015/01/09
-weekly.Next(new DateTime(2014, 1, 9);  // 2015/01/13
+weekly.Next(new DateTime(2014, 1, 1));  // 2015/01/02
+weekly.Next(new DateTime(2015, 1, 2));  // 2015/01/06
+weekly.Next(new DateTime(2014, 1, 6));  // 2015/01/09
+weekly.Next(new DateTime(2014, 1, 9));  // 2015/01/13
 
 // Monthly recurrences on a set day of the month
 var monthly = Recurs
@@ -50,20 +50,20 @@ var monthly = Recurs
     .Ending(new DateTime(2016, 2, 4))
     .Build();
 
-monthly.Next(new DateTime(2014, 4, 8);	// 2015/01/24
-monthly.Next(new DateTime(2015, 1, 24); // 2015/02/24
-monthly.Next(new DateTime(2015, 2, 24); // 2015/03/24
-monthly.Next(new DateTime(2015, 2, 10); // 2015/03/24
+monthly.Next(new DateTime(2014, 4, 8));	// 2015/01/24
+monthly.Next(new DateTime(2015, 1, 24)); // 2015/02/24
+monthly.Next(new DateTime(2015, 2, 24)); // 2015/03/24
+monthly.Next(new DateTime(2015, 2, 10)); // 2015/03/24
 
 // Monthly recurrences on an ordinal week and day of the week
 var monthly = Recurs
-	.Starting(new DateTime(2018, 1, 1)) // Monday
-	.Every(1)
-	.Months()
-	.OnOrdinalWeek(Ordinal.SECOND)
-	.OnDay(DayOfWeek.Friday)
-	.Ending(new DateTime(2018, 12, 25))
-	.Build();
+    .Starting(new DateTime(2018, 1, 1)) // Monday
+    .Every(1)
+    .Months()
+    .OnOrdinalWeek(Ordinal.SECOND)
+    .OnDay(DayOfWeek.Friday)
+    .Ending(new DateTime(2018, 12, 25))
+    .Build();
 
 monthly.Next(new DateTime(2017, 1, 1)); // 2018/01/12
 monthly.Next(new DateTime(2018, 1, 1)); // 2018/01/12
@@ -89,14 +89,14 @@ yearly.Next(new DateTime(2014, 2, 24)); // 2015/08/24
 
 // Yearly recurrences on ordinal week, day of week and in January
 var yearly = Recurs
-	.Starting(new DateTime(2018, 1, 1))
-	.Every(1)
-	.Years()
-	.OnOrdinalWeek(Ordinal.THIRD)
-	.OnDay(DayOfWeek.Thursday)
-	.OnMonths(Month.JANUARY)
-	.Ending(new DateTime(2030, 1, 1))
-	.Build();
+    .Starting(new DateTime(2018, 1, 1))
+    .Every(1)
+    .Years()
+    .OnOrdinalWeek(Ordinal.THIRD)
+    .OnDay(DayOfWeek.Thursday)
+    .OnMonths(Month.JANUARY)
+    .Ending(new DateTime(2030, 1, 1))
+    .Build();
 
 yearly.Next(new DateTime(2014, 1, 1));  // 2018/01/18
 yearly.Next(new DateTime(2018, 1, 1));  // 2018/01/18
