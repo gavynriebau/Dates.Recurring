@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Dates.Recurring
 {
-    [Flags]
     public enum Ordinal : int
     {
         [Description("First")]
