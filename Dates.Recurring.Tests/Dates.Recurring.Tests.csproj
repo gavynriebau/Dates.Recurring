@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrdinalTests.cs" />
     <Compile Include="DailyRecurrenceTests.cs" />
     <Compile Include="MonthlyRecurrenceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
