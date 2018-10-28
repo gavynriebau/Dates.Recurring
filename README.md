@@ -26,6 +26,19 @@ daily.Next(new DateTime(2015, 1, 1));  // 2015/01/02
 daily.Next(new DateTime(2015, 1, 2));  // 2015/01/03
 daily.Next(new DateTime(2015, 1, 15)); // null
 
+// Daily recurrences (only on week days).
+var daily = Recurs
+    .Starting(new DateTime(2015, 1, 1))
+    .Every(1)
+    .Days()
+    .Including(Day.MONDAY | Day.TUESDAY | Day.WEDNESDAY | Day.THURSDAY | Day.FRIDAY)
+    .Build();
+
+daily.Next(new DateTime(2014, 7, 3));   // 2015/01/01
+daily.Next(new DateTime(2015, 1, 1));   // 2015/01/02
+daily.Next(new DateTime(2015, 1, 2));   // 2015/01/05
+daily.Next(new DateTime(2015, 1, 5));   // 2015/01/06
+
 // Weekly recurrences
 var weekly = Recurs
     .Starting(new DateTime(2015, 1, 1))
