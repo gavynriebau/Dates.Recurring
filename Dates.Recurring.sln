@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dates.Recurring", "Dates.Recurring\Dates.Recurring.csproj", "{7C56CDDA-C835-4E58-A418-E788353DB517}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dates.Recurring", "Dates.Recurring\Dates.Recurring.csproj", "{7C56CDDA-C835-4E58-A418-E788353DB517}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dates.Recurring.Tests", "Dates.Recurring.Tests\Dates.Recurring.Tests.csproj", "{F7746920-06E8-4284-A0C6-5BE2C6BE0569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dates.Recurring.Tests", "Dates.Recurring.Tests\Dates.Recurring.Tests.csproj", "{F7746920-06E8-4284-A0C6-5BE2C6BE0569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7B637BD-80CB-42DA-B237-AA1C3E753EDE}
 	EndGlobalSection
 EndGlobal

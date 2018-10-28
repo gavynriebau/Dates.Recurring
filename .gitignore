@@ -1,6 +1,7 @@
-packages/
 **/bin/*
 **/obj/*
 *.vspscc
 *.suo
 .vs/
+packages/
+*.user
