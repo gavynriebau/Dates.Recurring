@@ -28,7 +28,19 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 3, 24), monthly.Next(new DateTime(2015, 2, 24)));
             Assert.Equal(new DateTime(2015, 3, 24), monthly.Next(new DateTime(2015, 2, 25)));
             Assert.Equal(new DateTime(2015, 6, 24), monthly.Next(new DateTime(2015, 6, 3)));
+
             Assert.Null(monthly.Next(new DateTime(2016, 6, 3)));
+
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Previous(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Previous(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Previous(new DateTime(2015, 2, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Previous(new DateTime(2015, 3, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Previous(new DateTime(2015, 2, 25)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Previous(new DateTime(2015, 3, 25)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Previous(new DateTime(2015, 4, 24)));
+            Assert.Equal(new DateTime(2015, 6, 24), monthly.Previous(new DateTime(2015, 6, 25)));
+
+            Assert.Null(monthly.Previous(new DateTime(2015, 1, 24)));
         }
 
         [Fact]

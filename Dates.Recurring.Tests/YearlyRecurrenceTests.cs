@@ -38,7 +38,28 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 8, 24), yearly.Next(new DateTime(2015, 7, 24)));
             Assert.Equal(new DateTime(2016, 1, 24), yearly.Next(new DateTime(2015, 8, 24)));
             Assert.Equal(new DateTime(2016, 2, 24), yearly.Next(new DateTime(2016, 1, 24)));
+
             Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 23)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 2, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 3, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 4, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 7, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 8, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 9, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 10, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 12, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2016, 1, 1)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2016, 1, 24)));
+            Assert.Equal(new DateTime(2016, 1, 24), yearly.Previous(new DateTime(2016, 1, 25)));
+            Assert.Equal(new DateTime(2016, 2, 24), yearly.Previous(new DateTime(2016, 2, 25)));
+
+            Assert.Null(yearly.Previous(new DateTime(2015, 1, 24)));
+            Assert.Null(yearly.Previous(new DateTime(2015, 1, 1)));
+            Assert.Null(yearly.Previous(new DateTime(2014, 1, 24)));
         }
 
         [Fact]
@@ -74,7 +95,28 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 2, 24), yearly.Next(new DateTime(2018, 1, 24)));
             Assert.Equal(new DateTime(2018, 8, 24), yearly.Next(new DateTime(2018, 2, 24)));
             Assert.Equal(new DateTime(2018, 8, 24), yearly.Next(new DateTime(2018, 6, 11)));
+
             Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 23)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 2, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 3, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 8, 23)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 8, 24)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 8, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 9, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2015, 10, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2016, 8, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2017, 8, 25)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Previous(new DateTime(2018, 1, 24)));
+            Assert.Equal(new DateTime(2018, 1, 24), yearly.Previous(new DateTime(2018, 1, 25)));
+            Assert.Equal(new DateTime(2018, 2, 24), yearly.Previous(new DateTime(2018, 2, 25)));
+            Assert.Equal(new DateTime(2018, 8, 24), yearly.Previous(new DateTime(2018, 8, 25)));
+            Assert.Equal(new DateTime(2018, 8, 24), yearly.Previous(new DateTime(2020, 8, 25)));
+
+            Assert.Null(yearly.Previous(new DateTime(2015, 1, 24)));
         }
 
         [Fact]

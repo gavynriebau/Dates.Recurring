@@ -15,11 +15,11 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring weekly = Recurs
-                .Starting(new DateTime(2015, 1, 1))
+                .Starting(new DateTime(2015, 1, 1)) // Thursday
                 .Every(1)
                 .Weeks()
                 .OnDays(Day.TUESDAY | Day.FRIDAY)
-                .Ending(new DateTime(2015, 2, 19))
+                .Ending(new DateTime(2015, 1, 19)) // Thursday
                 .Build();
 
             // Act.
@@ -30,6 +30,20 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 9), weekly.Next(new DateTime(2015, 1, 6)));
             Assert.Equal(new DateTime(2015, 1, 13), weekly.Next(new DateTime(2015, 1, 9)));
             Assert.Equal(new DateTime(2015, 1, 16), weekly.Next(new DateTime(2015, 1, 13)));
+
+            Assert.Null(weekly.Next(new DateTime(2015, 1, 16)));
+
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Previous(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 6), weekly.Previous(new DateTime(2015, 1, 9)));
+            Assert.Equal(new DateTime(2015, 1, 9), weekly.Previous(new DateTime(2015, 1, 13)));
+            Assert.Equal(new DateTime(2015, 1, 13), weekly.Previous(new DateTime(2015, 1, 16)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2015, 1, 19)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2015, 1, 20)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2015, 1, 21)));
+
+            Assert.Null(weekly.Previous(new DateTime(2015, 1, 2)));
+            Assert.Null(weekly.Previous(new DateTime(2015, 1, 1)));
+            Assert.Null(weekly.Previous(new DateTime(2014, 1, 1)));
         }
 
         [Fact]
