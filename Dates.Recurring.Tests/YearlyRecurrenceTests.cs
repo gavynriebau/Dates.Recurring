@@ -140,7 +140,16 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 2, 28), yearly.Next(new DateTime(2015, 1, 31)));
             Assert.Equal(new DateTime(2015, 2, 28), yearly.Next(new DateTime(2015, 2, 27)));
             Assert.Equal(new DateTime(2015, 8, 31), yearly.Next(new DateTime(2015, 2, 28)));
+
             Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+
+            Assert.Equal(new DateTime(2015, 1, 31), yearly.Previous(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 1, 31), yearly.Previous(new DateTime(2015, 2, 28)));
+            Assert.Equal(new DateTime(2015, 2, 28), yearly.Previous(new DateTime(2015, 3, 1)));
+            Assert.Equal(new DateTime(2015, 2, 28), yearly.Previous(new DateTime(2015, 3, 1)));
+            Assert.Equal(new DateTime(2015, 8, 31), yearly.Previous(new DateTime(2015, 9, 1)));
+
+            Assert.Null(yearly.Previous(new DateTime(2015, 1, 31)));
         }
 
         [Fact]
