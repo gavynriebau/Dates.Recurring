@@ -4,9 +4,8 @@ using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    public class YearlyRecurrenceTests
+    public sealed class YearlyRecurrenceTests
     {
-
         [Fact]
         public void Yearly_EveryYear()
         {
@@ -180,7 +179,18 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2016, 3, 24), yearly.Next(new DateTime(2015, 10, 24)));
             Assert.Equal(new DateTime(2017, 3, 24), yearly.Next(new DateTime(2016, 3, 24)));
             Assert.Equal(new DateTime(2017, 3, 24), yearly.Next(new DateTime(2016, 4, 24)));
+
             Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+
+            Assert.Equal(new DateTime(2015, 3, 24), yearly.Previous(new DateTime(2015, 3, 25)));
+            Assert.Equal(new DateTime(2015, 3, 24), yearly.Previous(new DateTime(2015, 10, 25)));
+            Assert.Equal(new DateTime(2015, 3, 24), yearly.Previous(new DateTime(2016, 3, 24)));
+            Assert.Equal(new DateTime(2016, 3, 24), yearly.Previous(new DateTime(2016, 3, 25)));
+            Assert.Equal(new DateTime(2016, 3, 24), yearly.Previous(new DateTime(2017, 3, 24)));
+            Assert.Equal(new DateTime(2017, 3, 24), yearly.Previous(new DateTime(2017, 3, 25)));
+            Assert.Equal(new DateTime(2017, 3, 24), yearly.Previous(new DateTime(2018, 3, 24)));
+
+            Assert.Null(yearly.Previous(new DateTime(2015, 3, 24)));
         }
 
         [Fact]
@@ -206,7 +216,15 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
             Assert.Equal(new DateTime(2019, 1, 17), yearly.Next(new DateTime(2018, 1, 18)));
             Assert.Equal(new DateTime(2020, 1, 16), yearly.Next(new DateTime(2019, 2, 18)));
+
             Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
+
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2018, 1, 19)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2019, 1, 17)));
+            Assert.Equal(new DateTime(2019, 1, 17), yearly.Previous(new DateTime(2019, 1, 18)));
+            Assert.Equal(new DateTime(2020, 1, 16), yearly.Previous(new DateTime(2020, 1, 17)));
+
+            Assert.Null(yearly.Previous(new DateTime(2018, 1, 18)));
         }
 
         [Fact]
@@ -232,7 +250,15 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
             Assert.Equal(new DateTime(2021, 1, 21), yearly.Next(new DateTime(2018, 1, 18)));
             Assert.Equal(new DateTime(2024, 1, 18), yearly.Next(new DateTime(2021, 2, 18)));
+
             Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
+
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2018, 1, 19)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2021, 1, 21)));
+            Assert.Equal(new DateTime(2021, 1, 21), yearly.Previous(new DateTime(2021, 1, 22)));
+            Assert.Equal(new DateTime(2024, 1, 18), yearly.Previous(new DateTime(2024, 1, 19)));
+
+            Assert.Null(yearly.Previous(new DateTime(2018, 1, 18)));
         }
 
         [Fact]
@@ -258,7 +284,15 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 1, 18), yearly.Next(new DateTime(2018, 1, 1)));
             Assert.Equal(new DateTime(2018, 4, 19), yearly.Next(new DateTime(2018, 1, 18)));
             Assert.Equal(new DateTime(2019, 1, 17), yearly.Next(new DateTime(2018, 4, 19)));
+
             Assert.Null(yearly.Next(new DateTime(2030, 1, 1)));
+
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2018, 1, 19)));
+            Assert.Equal(new DateTime(2018, 1, 18), yearly.Previous(new DateTime(2018, 4, 19)));
+            Assert.Equal(new DateTime(2018, 4, 19), yearly.Previous(new DateTime(2018, 4, 20)));
+            Assert.Equal(new DateTime(2019, 1, 17), yearly.Previous(new DateTime(2019, 1, 18)));
+
+            Assert.Null(yearly.Previous(new DateTime(2018, 1, 18)));
         }
     }
 }

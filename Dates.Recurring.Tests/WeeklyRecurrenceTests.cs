@@ -8,7 +8,7 @@ using Dates.Recurring.Type;
 
 namespace Dates.Recurring.Tests
 {
-    public class WeeklyRecurrenceTests
+    public sealed class WeeklyRecurrenceTests
     {
         [Fact]
         public void Weekly_EveryWeek()
@@ -68,6 +68,13 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 2, 10), weekly.Next(new DateTime(2015, 1, 24)));
             Assert.Equal(new DateTime(2015, 2, 10), weekly.Next(new DateTime(2015, 1, 27)));
             Assert.Equal(new DateTime(2015, 2, 13), weekly.Next(new DateTime(2015, 2, 10)));
+
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Previous(new DateTime(2015, 1, 3)));
+            Assert.Equal(new DateTime(2015, 1, 20), weekly.Previous(new DateTime(2015, 1, 21)));
+            Assert.Equal(new DateTime(2015, 1, 23), weekly.Previous(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 2, 10), weekly.Previous(new DateTime(2015, 2, 11)));
+            Assert.Equal(new DateTime(2015, 2, 10), weekly.Previous(new DateTime(2015, 2, 13)));
+            Assert.Equal(new DateTime(2015, 2, 13), weekly.Previous(new DateTime(2015, 2, 14)));
         }
 
         [Fact]
@@ -92,7 +99,16 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 10), weekly.Next(new DateTime(2015, 1, 6)));
             Assert.Equal(new DateTime(2015, 1, 10), weekly.Next(new DateTime(2015, 1, 9)));
             Assert.Equal(new DateTime(2015, 1, 17), weekly.Next(new DateTime(2015, 1, 13)));
+
             Assert.Null(weekly.Next(new DateTime(2015, 2, 19)));
+
+            Assert.Equal(new DateTime(2015, 1, 3), weekly.Previous(new DateTime(2015, 1, 4)));
+            Assert.Equal(new DateTime(2015, 1, 3), weekly.Previous(new DateTime(2015, 1, 10)));
+            Assert.Equal(new DateTime(2015, 1, 10), weekly.Previous(new DateTime(2015, 1, 11)));
+            Assert.Equal(new DateTime(2015, 1, 10), weekly.Previous(new DateTime(2015, 1, 17)));
+            Assert.Equal(new DateTime(2015, 1, 17), weekly.Previous(new DateTime(2015, 1, 18)));
+            
+            Assert.Null(weekly.Previous(new DateTime(2015, 1, 3)));
         }
 
         [Fact]
@@ -123,6 +139,14 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 3, 11), weekly.Next(new DateTime(2018, 3, 10)));
             
             Assert.Null(weekly.Next(new DateTime(2018, 8, 28)));
+
+            Assert.Equal(new DateTime(2018, 2, 24), weekly.Previous(new DateTime(2018, 2, 25)));
+            Assert.Equal(new DateTime(2018, 2, 25), weekly.Previous(new DateTime(2018, 3, 10)));
+
+            Assert.Equal(new DateTime(2018, 3, 10), weekly.Previous(new DateTime(2018, 3, 11)));
+            Assert.Equal(new DateTime(2018, 3, 11), weekly.Previous(new DateTime(2018, 3, 12)));
+            
+            Assert.Null(weekly.Previous(new DateTime(2018, 2, 24)));
         }
 
 
@@ -157,7 +181,17 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2018, 4, 8), weekly.Next(new DateTime(2018, 4, 3)));
 
             Assert.Null(weekly.Next(new DateTime(2018, 8, 28)));
-        }
 
+            Assert.Equal(new DateTime(2018, 2, 25), weekly.Previous(new DateTime(2018, 2, 26)));
+            Assert.Equal(new DateTime(2018, 3, 5), weekly.Previous(new DateTime(2018, 3, 6)));
+            Assert.Equal(new DateTime(2018, 3, 5), weekly.Previous(new DateTime(2018, 3, 11)));
+            Assert.Equal(new DateTime(2018, 3, 11), weekly.Previous(new DateTime(2018, 3, 12)));
+            Assert.Equal(new DateTime(2018, 3, 19), weekly.Previous(new DateTime(2018, 3, 25)));
+            Assert.Equal(new DateTime(2018, 3, 25), weekly.Previous(new DateTime(2018, 4, 2)));
+            Assert.Equal(new DateTime(2018, 4, 2), weekly.Previous(new DateTime(2018, 4, 3)));
+            Assert.Equal(new DateTime(2018, 4, 8), weekly.Previous(new DateTime(2018, 4, 9)));
+
+            Assert.Null(weekly.Previous(new DateTime(2018, 2, 25)));
+        }
     }
 }

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    public class MonthlyRecurrenceTests
+    public sealed class MonthlyRecurrenceTests
     {
 
         [Fact]

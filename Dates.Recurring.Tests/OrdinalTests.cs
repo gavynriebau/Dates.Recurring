@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    public class OrdinalTests
+    public sealed class OrdinalTests
     {
         [Fact]
         public void Ordinal_Format_Should_Not_Behave_As_Flags_Enum_On_Conversion_To_String()

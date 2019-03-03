@@ -4,8 +4,7 @@ using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    
-    public class DailyRecurrenceTests
+    public sealed class DailyRecurrenceTests
     {
         [Fact]
         public void Daily_EveryDay()
