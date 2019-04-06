@@ -12,6 +12,7 @@
     <FileVersion>1.0.0</FileVersion>
     <ApplicationIcon />
     <StartupObject />
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>

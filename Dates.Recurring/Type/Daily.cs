@@ -23,15 +23,7 @@ namespace Dates.Recurring.Type
 
             while ((next.Ticks - after.Ticks) <= TimeSpan.TicksPerSecond)
             {
-                var daysSkipped = 0;
-                do
-                {
-                    next = next.AddDays(1);
-                    if ((Convert.ToInt32(Math.Pow(2, (int)next.DayOfWeek)) & (int)IncludeDays) > 0)
-                    {
-                        daysSkipped++;
-                    }
-                } while (daysSkipped < X);
+                next = MoveXDaysForward(next);
             }
 
             if (Ending.HasValue && next.Date > Ending.Value.Date)
@@ -39,6 +31,44 @@ namespace Dates.Recurring.Type
                 return null;
             }
 
+            return next;
+        }
+
+        public override DateTime? Previous(DateTime before)
+        {
+            if (before.Date <= Starting.Date)
+            {
+                return null;
+            }
+
+            if (Ending.HasValue && before.Date > Ending.Value)
+            {
+                before = Ending.Value.Date + 1.Days();
+            }
+
+            var next = Starting;
+            DateTime? last = null;
+
+            while (next.Ticks < before.Ticks)
+            {
+                last = next;
+                next = MoveXDaysForward(next);
+            }
+
+            return last.Value;
+        }
+
+        private DateTime MoveXDaysForward(DateTime next)
+        {
+            var daysSkipped = 0;
+            do
+            {
+                next = next.AddDays(1);
+                if ((Convert.ToInt32(Math.Pow(2, (int)next.DayOfWeek)) & (int)IncludeDays) > 0)
+                {
+                    daysSkipped++;
+                }
+            } while (daysSkipped < X);
             return next;
         }
     }

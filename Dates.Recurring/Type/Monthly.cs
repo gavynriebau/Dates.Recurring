@@ -29,6 +29,20 @@ namespace Dates.Recurring.Type
             return isSpecificDayOfMonth ? NextSpecificDay(after) : NextOrdinal(after);
         }
 
+        public override DateTime? Previous(DateTime before)
+        {
+            if (before.Date <= Starting.Date)
+            {
+                return null;
+            }
+
+            if (Ending.HasValue && before.Date > Ending.Value)
+            {
+                before = Ending.Value.Date + 1.Days();
+            }
+
+            return isSpecificDayOfMonth ? PreviousSpecificDay(before) : PreviousOrdinal(before);
+        }
 
         private DateTime? NextOrdinal(DateTime after)
         {
@@ -43,23 +57,10 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfMonthMatched(targetDay, next))
             {
-                int dayOfMonth = Math.Min(targetDay, DateTime.DaysInMonth(next.Year, next.Month));
+                var candidate = GetNextOrdinalDayCandidate(next, targetDay);
 
-                if (next.Day < dayOfMonth)
-                {
-                    next = next + 1.Days();
-                }
-                else
-                {
-                    // Rewind to the first of the month.
-                    next = next + ((-1 * next.Day) + 1).Days();
-
-                    // Skip ahead by the required number of months.
-                    next = next.AddMonths(X);
-
-                    targetDay = OrdinalTargetDay(next.Month, next.Year);
-
-                }
+                next = candidate.Date;
+                targetDay = candidate.TargetDay;
             }
 
             if (Ending.HasValue && next.Date >= Ending.Value.Date)
@@ -68,6 +69,29 @@ namespace Dates.Recurring.Type
             }
 
             return next;
+        }
+
+        private DateTime? PreviousOrdinal(DateTime before)
+        {
+            var next = Starting;
+            DateTime? last = null;
+
+            var targetDay = OrdinalTargetDay(next.Month, next.Year);
+
+            while (next.Date < before.Date)
+            {
+                if (DayOfMonthMatched(targetDay, next))
+                {
+                    last = next;
+                }
+
+                var nextCandidate = GetNextOrdinalDayCandidate(next, targetDay);
+
+                next = nextCandidate.Date;
+                targetDay = nextCandidate.TargetDay;
+            }
+
+            return last;
         }
 
         private int OrdinalTargetDay(int month, int year)
@@ -95,20 +119,7 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfMonthMatched(DayOfMonth.Value, next))
             {
-                int dayOfMonth = Math.Min(DayOfMonth.Value, DateTime.DaysInMonth(next.Year, next.Month));
-
-                if (next.Day < dayOfMonth)
-                {
-                    next = next + 1.Days();
-                }
-                else
-                {
-                    // Rewind to the first of the month.
-                    next = next + ((-1 * next.Day) + 1).Days();
-
-                    // Skip ahead by the required number of months.
-                    next = next.AddMonths(X);
-                }
+                next = GetNextSpecificDayCandidate(next);
             }
 
             if (Ending.HasValue && next.Date >= Ending.Value.Date)
@@ -119,11 +130,82 @@ namespace Dates.Recurring.Type
             return next;
         }
 
+        private DateTime? PreviousSpecificDay(DateTime before)
+        {
+            var next = Starting;
+            DateTime? last = null;
+
+            while (next.Date < before.Date)
+            {
+                if (DayOfMonthMatched(DayOfMonth.Value, next))
+                {
+                    last = next;
+                }
+
+                next = GetNextSpecificDayCandidate(next);
+            }
+
+            return last;
+        }
+
         private bool DayOfMonthMatched(int currentDayOfMonth, DateTime targetDate)
         {
             int dayOfMonth = Math.Min(currentDayOfMonth, DateTime.DaysInMonth(targetDate.Year, targetDate.Month));
             return (targetDate.Day == dayOfMonth);
         }
 
+        private DateTime GetNextSpecificDayCandidate(DateTime current)
+        {
+            int dayOfMonth = Math.Min(DayOfMonth.Value, DateTime.DaysInMonth(current.Year, current.Month));
+
+            if (current.Day < dayOfMonth)
+            {
+                return current + 1.Days();
+            }
+            else
+            {
+                // Rewind to the first of the month.
+                current = current + ((-1 * current.Day) + 1).Days();
+
+                // Skip ahead by the required number of months.
+                return current.AddMonths(X);
+            }
+        }
+        
+        private OrdinalDayCandidate GetNextOrdinalDayCandidate(DateTime current, int targetDay)
+        {
+            int dayOfMonth = Math.Min(targetDay, DateTime.DaysInMonth(current.Year, current.Month));
+
+            if (current.Day < dayOfMonth)
+            {
+                current = current + 1.Days();
+
+                return new OrdinalDayCandidate(current, targetDay);
+            }
+            else
+            {
+                // Rewind to the first of the month.
+                current = current + ((-1 * current.Day) + 1).Days();
+
+                // Skip ahead by the required number of months.
+                current = current.AddMonths(X);
+
+                targetDay = OrdinalTargetDay(current.Month, current.Year);
+
+                return new OrdinalDayCandidate(current, targetDay);
+            }
+        }
+
+        private struct OrdinalDayCandidate
+        {
+            public OrdinalDayCandidate(DateTime date, int targetDay)
+            {
+                Date = date;
+                TargetDay = targetDay;
+            }
+
+            public DateTime Date { get; }
+            public int TargetDay { get; }
+        }
     }
 }

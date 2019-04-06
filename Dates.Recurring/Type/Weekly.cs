@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Humanizer;
 
 namespace Dates.Recurring.Type
@@ -43,23 +39,7 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfWeekMatched(next.DayOfWeek))
             {
-                if (next.DayOfWeek != LastDayOfWeek)
-                {
-                    next = next + 1.Days();
-                }
-                else
-                {
-                    // Skip ahead by x weeks.
-                    next = next + X.Weeks();
-
-                    // Rewind to the first day of the week.
-                    int delta = FirstDayOfWeek - next.DayOfWeek;
-                    if (delta > 0)
-                    {
-                        delta -= 7;
-                    }
-                    next = next + delta.Days();
-                }
+                next = GetNextCandidate(next);
             }
 
             if (Ending.HasValue && next.Date > Ending.Value.Date)
@@ -68,6 +48,34 @@ namespace Dates.Recurring.Type
             }
 
             return next;
+        }
+
+        public override DateTime? Previous(DateTime before)
+        {
+            if (before.Date <= Starting.Date)
+            {
+                return null;
+            }
+
+            if (Ending.HasValue && before.Date > Ending.Value)
+            {
+                before = Ending.Value.Date + 1.Days();
+            }
+
+            var next = Starting;
+            DateTime? last = null;
+
+            while (next.Date < before.Date)
+            {
+                if (DayOfWeekMatched(next.DayOfWeek))
+                {
+                    last = next;
+                }
+
+                next = GetNextCandidate(next);
+            }
+
+            return last;
         }
 
         private bool DayOfWeekMatched(DayOfWeek day)
@@ -94,6 +102,27 @@ namespace Dates.Recurring.Type
                 return true;
 
             return false;
+        }
+
+        private DateTime GetNextCandidate(DateTime next)
+        {
+            if (next.DayOfWeek != LastDayOfWeek)
+            {
+                return next + 1.Days();
+            }
+            else
+            {
+                // Skip ahead by x weeks.
+                next = next + X.Weeks();
+
+                // Rewind to the first day of the week.
+                int delta = FirstDayOfWeek - next.DayOfWeek;
+                if (delta > 0)
+                {
+                    delta -= 7;
+                }
+                return next + delta.Days();
+            }
         }
     }
 }

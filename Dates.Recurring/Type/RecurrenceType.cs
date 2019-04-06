@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dates.Recurring.Type
 {
@@ -20,5 +16,6 @@ namespace Dates.Recurring.Type
         }
 
         public abstract DateTime? Next(DateTime after);
+        public abstract DateTime? Previous(DateTime before);
     }
 }

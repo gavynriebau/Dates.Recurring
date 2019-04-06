@@ -4,8 +4,7 @@ using Xunit;
 
 namespace Dates.Recurring.Tests
 {
-    
-    public class DailyRecurrenceTests
+    public sealed class DailyRecurrenceTests
     {
         [Fact]
         public void Daily_EveryDay()
@@ -24,7 +23,17 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 1), daily.Next(new DateTime(2014, 7, 3)));
             Assert.Equal(new DateTime(2015, 1, 2), daily.Next(new DateTime(2015, 1, 1)));
             Assert.Equal(new DateTime(2015, 1, 3), daily.Next(new DateTime(2015, 1, 2)));
+
             Assert.Null(daily.Next(new DateTime(2015, 1, 15)));
+
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 2), daily.Previous(new DateTime(2015, 1, 3)));
+            Assert.Equal(new DateTime(2015, 1, 3), daily.Previous(new DateTime(2015, 1, 4)));
+            Assert.Equal(new DateTime(2015, 1, 14), daily.Previous(new DateTime(2015, 1, 15)));
+            Assert.Equal(new DateTime(2015, 1, 15), daily.Previous(new DateTime(2015, 1, 16)));
+            Assert.Equal(new DateTime(2015, 1, 15), daily.Previous(new DateTime(2015, 1, 17)));
+
+            Assert.Null(daily.Previous(new DateTime(2015, 1, 1)));
         }
 
         [Fact]
@@ -43,6 +52,14 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 1), daily.Next(new DateTime(2014, 7, 3)));
             Assert.Equal(new DateTime(2015, 1, 4), daily.Next(new DateTime(2015, 1, 1)));
             Assert.Equal(new DateTime(2015, 1, 7), daily.Next(new DateTime(2015, 1, 5)));
+
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 3)));
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 4)));
+            Assert.Equal(new DateTime(2015, 1, 4), daily.Previous(new DateTime(2015, 1, 5)));
+            Assert.Equal(new DateTime(2015, 1, 4), daily.Previous(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 4), daily.Previous(new DateTime(2015, 1, 7)));
+            Assert.Equal(new DateTime(2015, 1, 7), daily.Previous(new DateTime(2015, 1, 8)));
         }
 
         [Fact]
@@ -63,6 +80,11 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 2), daily.Next(new DateTime(2015, 1, 1)));
             Assert.Equal(new DateTime(2015, 1, 5), daily.Next(new DateTime(2015, 1, 2)));
             Assert.Equal(new DateTime(2015, 1, 6), daily.Next(new DateTime(2015, 1, 5)));
+
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 2), daily.Previous(new DateTime(2015, 1, 3)));
+            Assert.Equal(new DateTime(2015, 1, 5), daily.Previous(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 6), daily.Previous(new DateTime(2015, 1, 7)));
         }
 
         [Fact]
@@ -83,6 +105,11 @@ namespace Dates.Recurring.Tests
             Assert.Equal(new DateTime(2015, 1, 6), daily.Next(new DateTime(2015, 1, 1)));
             Assert.Equal(new DateTime(2015, 1, 9), daily.Next(new DateTime(2015, 1, 6)));
             Assert.Equal(new DateTime(2015, 1, 14), daily.Next(new DateTime(2015, 1, 9)));
+
+            Assert.Equal(new DateTime(2015, 1, 1), daily.Previous(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 6), daily.Previous(new DateTime(2015, 1, 7)));
+            Assert.Equal(new DateTime(2015, 1, 9), daily.Previous(new DateTime(2015, 1, 10)));
+            Assert.Equal(new DateTime(2015, 1, 14), daily.Previous(new DateTime(2015, 1, 15)));
         }
 
     }
