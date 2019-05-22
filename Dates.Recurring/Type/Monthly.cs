@@ -48,7 +48,7 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
 
-            if (after.Date < Starting.Date)
+            if (after.Date <= Starting.Date)
             {
                 after = Starting - 1.Days();
             }

@@ -207,6 +207,25 @@ namespace Dates.Recurring.Tests
 
             Assert.Null(monthly.Previous(new DateTime(2018, 1, 31)));
         }
+
+        [Fact]
+        public void Monthly_EveryLastMonth_Ordinal_SameDay()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2018, 12, 25, 11, 00, 00)) // Monday
+                .Every(1)
+                .Months()
+                .OnOrdinalWeek(Ordinal.FOURTH)
+                .OnDay(DayOfWeek.Tuesday)
+                .Ending(new DateTime(2019, 12, 26))
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018,12,25, 11,00,00 ), monthly.Next(new DateTime(2018, 12, 25, 09, 00 ,00)));
+        }
     }
 }
 
