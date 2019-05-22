@@ -55,7 +55,7 @@ namespace Dates.Recurring.Type
 
             var targetDay = OrdinalTargetDay(next.Month, next.Year);
 
-            while (next.Date <= after.Date || !DayOfMonthMatched(targetDay, next))
+            while (next.Date < after.Date || !DayOfMonthMatched(targetDay, next))
             {
                 var candidate = GetNextOrdinalDayCandidate(next, targetDay);
 

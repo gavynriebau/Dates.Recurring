@@ -162,7 +162,7 @@ namespace Dates.Recurring.Tests
             // Assert.
             Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2017, 1, 1)));
             Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2018, 1, 1)));
-            Assert.Equal(new DateTime(2018, 4, 13), monthly.Next(new DateTime(2018, 1, 12)));
+            Assert.Equal(new DateTime(2018, 1, 12), monthly.Next(new DateTime(2018, 1, 12)));
             Assert.Equal(new DateTime(2018, 7, 13), monthly.Next(new DateTime(2018, 7, 1)));
 
             Assert.Null(monthly.Next(new DateTime(2020, 2, 1)));
@@ -193,7 +193,7 @@ namespace Dates.Recurring.Tests
             // Assert.
             Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2017, 1, 1)));
             Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2018, 1, 1)));
-            Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 1, 31)));
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2018, 1, 31)));
             Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 2, 1)));
             Assert.Equal(new DateTime(2018, 4, 25), monthly.Next(new DateTime(2018, 4, 1)));
 
@@ -213,18 +213,17 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring monthly = Recurs
-                .Starting(new DateTime(2018, 12, 25, 11, 00, 00)) // Tuesday
+                .Starting(new DateTime(2019,04,30,13,00,00)) // Tuesday
                 .Every(1)
                 .Months()
-                .OnOrdinalWeek(Ordinal.FOURTH)
-                .OnDay(DayOfWeek.Tuesday)
-                .Ending(new DateTime(2019, 12, 26))
+                .OnOrdinalWeek(Ordinal.LAST)
+                .OnDay(DayOfWeek.Monday)
                 .Build();
 
             // Act.
 
             // Assert.
-            Assert.Equal(new DateTime(2018,12,25, 11,00,00 ), monthly.Next(new DateTime(2018, 12, 25, 09, 00 ,00)));
+            Assert.Equal(new DateTime(2019,05,27,13,00,00), monthly.Next(new DateTime(2019,05,27,09,00,00)));
         }
     }
 }
