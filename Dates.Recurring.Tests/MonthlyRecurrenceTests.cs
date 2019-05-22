@@ -213,7 +213,7 @@ namespace Dates.Recurring.Tests
         {
             // Arrange.
             IRecurring monthly = Recurs
-                .Starting(new DateTime(2018, 12, 25, 11, 00, 00)) // Monday
+                .Starting(new DateTime(2018, 12, 25, 11, 00, 00)) // Tuesday
                 .Every(1)
                 .Months()
                 .OnOrdinalWeek(Ordinal.FOURTH)
