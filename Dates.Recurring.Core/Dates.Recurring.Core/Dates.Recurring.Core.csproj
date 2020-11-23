@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Description>Easily calculate the next recurrence for recurring dates using a fluent syntax</Description>
+    <Authors>Gavyn Riebau</Authors>
+    <Copyright>Copyright ©  2020</Copyright>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/gavynriebau/Dates.Recurring</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageTags>Dates;Recurring;Repeating;Recur;Repeat;System.DateTime;Schedule</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Dates.Recurring\Builders\DaysBuilder.cs" Link="DaysBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Builders\EveryBuilder.cs" Link="EveryBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Builders\MonthsBuilder.cs" Link="MonthsBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Builders\StartingBuilder.cs" Link="StartingBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Builders\WeeksBuilder.cs" Link="WeeksBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Builders\YearsBuilder.cs" Link="YearsBuilder.cs" />
+    <Compile Include="..\..\Dates.Recurring\Enums\Day.cs" Link="Day.cs" />
+    <Compile Include="..\..\Dates.Recurring\Enums\Month.cs" Link="Month.cs" />
+    <Compile Include="..\..\Dates.Recurring\Enums\Ordinal.cs" Link="Ordinal.cs" />
+    <Compile Include="..\..\Dates.Recurring\Recurs.cs" Link="Recurs.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\Daily.cs" Link="Daily.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\IRecurring.cs" Link="IRecurring.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\Monthly.cs" Link="Monthly.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\OrdinalDayCandidate.cs" Link="OrdinalDayCandidate.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\RecurrenceType.cs" Link="RecurrenceType.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\Weekly.cs" Link="Weekly.cs" />
+    <Compile Include="..\..\Dates.Recurring\Type\Yearly.cs" Link="Yearly.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Humanizer.Core" Version="2.8.26" />
+  </ItemGroup>
+
+</Project>
