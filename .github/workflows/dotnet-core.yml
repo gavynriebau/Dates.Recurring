@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: Publish to nuget
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: Dates.Recurring/Dates.Recurring.csproj
+        VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+        TAG_COMMIT: true
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
