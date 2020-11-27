@@ -4,7 +4,7 @@ Dates.Recurring
 Easily calculate the next time at which a recurring event occurs.
 Uses a fluent syntax.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/rol28n0b18wanuyc?svg=true)](https://ci.appveyor.com/project/gavynriebau/dates-recurring)
+![Build Status](https://github.com/gavynriebau/Dates.Recurring/workflows/.NET%20Core/badge.svg)
 
 # Install
 
