@@ -22,7 +22,7 @@ namespace Dates.Recurring.Type
             }
         }
 
-        public Weekly(int weeks, DateTime starting, DateTime? ending, Day days, DayOfWeek firstDayOfWeek) : base(weeks, starting, ending)
+        public Weekly(int weeks, DateTime starting, DateTime? ending, int? endingAfter, Day days, DayOfWeek firstDayOfWeek) : base(weeks, starting, ending, endingAfter)
         {
             Days = days;
             FirstDayOfWeek = firstDayOfWeek;
@@ -31,6 +31,7 @@ namespace Dates.Recurring.Type
         public override DateTime? Next(DateTime after)
         {
             var next = Starting;
+            int iterations = 1;
 
             if (after.Date < Starting.Date)
             {
@@ -39,10 +40,20 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfWeekMatched(next.DayOfWeek))
             {
+                if (DayOfWeekMatched(next.DayOfWeek))
+                {
+                    iterations++;
+                }
+
                 next = GetNextCandidate(next);
             }
 
             if (Ending.HasValue && next.Date > Ending.Value.Date)
+            {
+                return null;
+            }
+
+            if (EndingAfter.HasValue && iterations > EndingAfter)
             {
                 return null;
             }
@@ -52,6 +63,8 @@ namespace Dates.Recurring.Type
 
         public override DateTime? Previous(DateTime before)
         {
+            int iterations = 0;
+
             if (before.Date <= Starting.Date)
             {
                 return null;
@@ -70,9 +83,15 @@ namespace Dates.Recurring.Type
                 if (DayOfWeekMatched(next.DayOfWeek))
                 {
                     last = next;
+                    iterations++;
                 }
 
                 next = GetNextCandidate(next);
+                
+                if (!DayOfWeekMatched(next.DayOfWeek) && EndingAfter.HasValue && iterations >= EndingAfter)
+                {
+                    break;
+                }
             }
 
             return last;

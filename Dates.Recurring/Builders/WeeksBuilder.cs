@@ -8,6 +8,7 @@ namespace Dates.Recurring.Builders
         private int _weeks;
         private DateTime _starting;
         private DateTime? _ending;
+        private int? _endingAfter;
         private Day _days;
         private DayOfWeek _firstDayOfWeek = DayOfWeek.Sunday;
 
@@ -21,6 +22,12 @@ namespace Dates.Recurring.Builders
         public WeeksBuilder Ending(DateTime ending)
         {
             _ending = ending;
+            return this;
+        }
+
+        public WeeksBuilder EndingAfter(int endingAfter)
+        {
+            _endingAfter = endingAfter;
             return this;
         }
 
@@ -67,7 +74,7 @@ namespace Dates.Recurring.Builders
 
         public Weekly Build()
         {
-            return new Weekly(_weeks, _starting, _ending, _days, _firstDayOfWeek);
+            return new Weekly(_weeks, _starting, _ending, _endingAfter, _days, _firstDayOfWeek);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Dates.Recurring.Builders
         private DayOfWeek? _dayOfWeek;
         private DateTime _starting;
         private DateTime? _ending;
+        private int? _endingAfter;
 
         public YearsBuilder(int skipYears, DateTime starting)
         {
@@ -22,6 +23,12 @@ namespace Dates.Recurring.Builders
         public YearsBuilder Ending(DateTime ending)
         {
             _ending = ending;
+            return this;
+        }
+
+        public YearsBuilder EndingAfter(int endingAfter)
+        {
+            _endingAfter = endingAfter;
             return this;
         }
 
@@ -97,9 +104,9 @@ namespace Dates.Recurring.Builders
         {
             if (_dayOfMonth.HasValue)
             {
-                return new Yearly(_skipYears, _dayOfMonth, _month, _starting, _ending);
+                return new Yearly(_skipYears, _dayOfMonth, _month, _starting, _ending, _endingAfter);
             }
-            return new Yearly(_skipYears, _ordinalWeek, _dayOfWeek, _month, _starting, _ending);
+            return new Yearly(_skipYears, _ordinalWeek, _dayOfWeek, _month, _starting, _ending, _endingAfter);
         }
     }
 }

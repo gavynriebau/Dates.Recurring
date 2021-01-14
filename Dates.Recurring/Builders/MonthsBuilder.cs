@@ -11,6 +11,7 @@ namespace Dates.Recurring.Builders
         private DayOfWeek? _dayOfWeek;
         private DateTime _starting;
         private DateTime? _ending;
+        private int? _endingAfter;
 
         public MonthsBuilder(int skipMonths, DateTime starting)
         {
@@ -21,6 +22,12 @@ namespace Dates.Recurring.Builders
         public MonthsBuilder Ending(DateTime ending)
         {
             _ending = ending;
+            return this;
+        }
+
+        public MonthsBuilder EndingAfter(int endingAfter)
+        {
+            _endingAfter = endingAfter;
             return this;
         }
 
@@ -46,9 +53,9 @@ namespace Dates.Recurring.Builders
         {
             if (_dayOfMonth != null)
             {
-                return new Monthly(_skipMonths, _dayOfMonth, _starting, _ending);
+                return new Monthly(_skipMonths, _dayOfMonth, _starting, _ending, _endingAfter);
             }
-            return new Monthly(_skipMonths, _ordinalWeek, _dayOfWeek, _starting, _ending);
+            return new Monthly(_skipMonths, _ordinalWeek, _dayOfWeek, _starting, _ending, _endingAfter);
         }
     }
 }

@@ -294,6 +294,81 @@ namespace Dates.Recurring.Tests
 
             Assert.Null(yearly.Previous(new DateTime(2018, 1, 18)));
         }
+
+        [Fact]
+        public void Yearly_EveryYear_OnDay_OnMonths_EndingAfter()
+        {
+            // Arrange.
+            IRecurring yearly = Recurs
+                .Starting(new DateTime(2015, 1, 1))
+                .Every(1)
+                .Years()
+                .OnDay(24)
+                .OnMonths(Month.JANUARY | Month.FEBRUARY | Month.AUGUST)
+                .EndingAfter(5)
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Next(new DateTime(2015, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Next(new DateTime(2015, 1, 23)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 2, 23)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Next(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Next(new DateTime(2015, 6, 24)));
+            Assert.Equal(new DateTime(2015, 8, 24), yearly.Next(new DateTime(2015, 7, 24)));
+            Assert.Equal(new DateTime(2016, 1, 24), yearly.Next(new DateTime(2015, 8, 24)));
+            Assert.Equal(new DateTime(2016, 2, 24), yearly.Next(new DateTime(2016, 1, 24)));
+            
+            Assert.Null(yearly.Next(new DateTime(2016, 2, 25)));
+            Assert.Null(yearly.Next(new DateTime(2017, 1, 25)));
+            Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+
+
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 23)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Previous(new DateTime(2015, 2, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 6, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Previous(new DateTime(2015, 7, 24)));
+            Assert.Equal(new DateTime(2016, 2, 24), yearly.Previous(new DateTime(2017, 8, 24)));
+            Assert.Equal(new DateTime(2016, 2, 24), yearly.Previous(new DateTime(2018, 1, 24)));
+            
+            Assert.Null(yearly.Previous(new DateTime(2015, 1, 22)));
+            Assert.Null(yearly.Previous(new DateTime(2014, 1, 25)));
+            Assert.Null(yearly.Previous(new DateTime(2014, 1, 1)));
+        }
+
+        [Fact]
+        public void Yearly_EveryYear_EveryThirdYear_EndingAfter()
+        {
+            // Arrange.
+            IRecurring yearly = Recurs
+                .Starting(new DateTime(2015, 1, 1))
+                .Every(3)
+                .Years()
+                .OnDay(24)
+                .OnMonths(Month.JANUARY | Month.FEBRUARY | Month.AUGUST)
+                .EndingAfter(5)
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Next(new DateTime(2015, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 24), yearly.Next(new DateTime(2015, 1, 23)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 1, 24)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 1, 25)));
+            Assert.Equal(new DateTime(2015, 2, 24), yearly.Next(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2018, 2, 24), yearly.Next(new DateTime(2018, 2, 23)));
+            
+            Assert.Null(yearly.Next(new DateTime(2018, 2, 24)));
+            Assert.Null(yearly.Next(new DateTime(2019, 1, 25)));
+            Assert.Null(yearly.Next(new DateTime(2020, 1, 1)));
+        }
     }
 }
 

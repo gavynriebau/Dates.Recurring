@@ -11,13 +11,13 @@ namespace Dates.Recurring.Type
 
         private bool isSpecificDayOfMonth;
 
-        public Monthly(int skipMonths, int? dayOfMonth, DateTime starting, DateTime? ending) : base(skipMonths, starting, ending)
+        public Monthly(int skipMonths, int? dayOfMonth, DateTime starting, DateTime? ending, int? endingAfter) : base(skipMonths, starting, ending, endingAfter)
         {
             DayOfMonth = dayOfMonth;
             isSpecificDayOfMonth = true;
         }
 
-        public Monthly(int skipMonths, Ordinal? ordinalWeek, DayOfWeek? dayOfWeek, DateTime starting, DateTime? ending) : base(skipMonths, starting, ending)
+        public Monthly(int skipMonths, Ordinal? ordinalWeek, DayOfWeek? dayOfWeek, DateTime starting, DateTime? ending, int? endingAfter) : base(skipMonths, starting, ending, endingAfter)
         {
             OrdinalWeek = ordinalWeek;
             DayOfWeek = dayOfWeek;
@@ -47,6 +47,7 @@ namespace Dates.Recurring.Type
         private DateTime? NextOrdinal(DateTime after)
         {
             var next = Starting;
+            int iterations = 1;
 
             if (after.Date < Starting.Date)
             {
@@ -57,6 +58,11 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfMonthMatched(targetDay, next))
             {
+                if (DayOfMonthMatched(targetDay, next))
+                {
+                    iterations++;
+                }
+
                 var candidate = GetNextOrdinalDayCandidate(next, targetDay);
 
                 next = candidate.Date;
@@ -68,6 +74,11 @@ namespace Dates.Recurring.Type
                 return null;
             }
 
+            if (EndingAfter.HasValue && iterations > EndingAfter)
+            {
+                return null;
+            }
+
             return next;
         }
 
@@ -75,6 +86,7 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
             DateTime? last = null;
+            int iterations = 0;
 
             var targetDay = OrdinalTargetDay(next.Month, next.Year);
 
@@ -83,12 +95,18 @@ namespace Dates.Recurring.Type
                 if (DayOfMonthMatched(targetDay, next))
                 {
                     last = next;
+                    iterations++;
                 }
 
                 var nextCandidate = GetNextOrdinalDayCandidate(next, targetDay);
 
                 next = nextCandidate.Date;
                 targetDay = nextCandidate.TargetDay;
+
+                if (!DayOfMonthMatched(targetDay, next) && EndingAfter.HasValue && iterations >= EndingAfter)
+                {
+                    break;
+                }
             }
 
             return last;
@@ -111,6 +129,7 @@ namespace Dates.Recurring.Type
         private DateTime? NextSpecificDay(DateTime after)
         {
             var next = Starting;
+            int iterations = 1;
 
             if (after.Date < Starting.Date)
             {
@@ -119,10 +138,21 @@ namespace Dates.Recurring.Type
 
             while (next.Date <= after.Date || !DayOfMonthMatched(DayOfMonth.Value, next))
             {
+                if(DayOfMonthMatched(DayOfMonth.Value, next))
+                {
+                    iterations++;
+                }
+
                 next = GetNextSpecificDayCandidate(next);
+
             }
 
             if (Ending.HasValue && next.Date >= Ending.Value.Date)
+            {
+                return null;
+            }
+
+            if (EndingAfter.HasValue && iterations > EndingAfter)
             {
                 return null;
             }
@@ -134,15 +164,22 @@ namespace Dates.Recurring.Type
         {
             var next = Starting;
             DateTime? last = null;
+            int iterations = 0;
 
             while (next.Date < before.Date)
             {
                 if (DayOfMonthMatched(DayOfMonth.Value, next))
                 {
                     last = next;
+                    iterations++;
                 }
 
                 next = GetNextSpecificDayCandidate(next);
+                
+                if (!DayOfMonthMatched(DayOfMonth.Value, next) && EndingAfter.HasValue && iterations >= EndingAfter)
+                {
+                    break;
+                }
             }
 
             return last;
