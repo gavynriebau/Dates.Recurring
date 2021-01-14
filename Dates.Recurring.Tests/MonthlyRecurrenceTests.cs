@@ -207,6 +207,83 @@ namespace Dates.Recurring.Tests
 
             Assert.Null(monthly.Previous(new DateTime(2018, 1, 31)));
         }
+
+        [Fact]
+        public void Monthly_EveryMonth_OnDay_EndingAfter()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2015, 1, 1))
+                .Every(1)
+                .Months()
+                .OnDay(24)
+                .EndingAfter(5)
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Next(new DateTime(2015, 1, 1)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Next(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Next(new DateTime(2015, 3, 1)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Next(new DateTime(2015, 4, 1)));
+            Assert.Equal(new DateTime(2015, 5, 24), monthly.Next(new DateTime(2015, 5, 1)));
+
+            Assert.Null(monthly.Next(new DateTime(2015, 6, 1)));
+
+            Assert.Equal(new DateTime(2015, 1, 24), monthly.Previous(new DateTime(2015, 2, 1)));
+            Assert.Equal(new DateTime(2015, 2, 24), monthly.Previous(new DateTime(2015, 3, 1)));
+            Assert.Equal(new DateTime(2015, 3, 24), monthly.Previous(new DateTime(2015, 4, 1)));
+            Assert.Equal(new DateTime(2015, 4, 24), monthly.Previous(new DateTime(2015, 5, 1)));
+            Assert.Equal(new DateTime(2015, 5, 24), monthly.Previous(new DateTime(2015, 6, 1)));
+            Assert.Equal(new DateTime(2015, 5, 24), monthly.Previous(new DateTime(2016, 6, 1)));
+            Assert.Equal(new DateTime(2015, 5, 24), monthly.Previous(new DateTime(2017, 8, 1)));
+            Assert.Equal(new DateTime(2015, 5, 24), monthly.Previous(new DateTime(2020, 10, 13)));
+
+            Assert.Null(monthly.Previous(new DateTime(2015, 1, 1)));
+            Assert.Null(monthly.Previous(new DateTime(2014, 6, 1)));
+        }
+
+        [Fact]
+        public void Monthly_EveryMonth_Ordinal_LastWeek_EndingAfter()
+        {
+            // Arrange.
+            IRecurring monthly = Recurs
+                .Starting(new DateTime(2018, 1, 1)) // Monday
+                .Every(1)
+                .Months()
+                .OnOrdinalWeek(Ordinal.LAST)
+                .OnDay(DayOfWeek.Wednesday)
+                .EndingAfter(5)
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2017, 1, 1)));
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Next(new DateTime(2018, 1, 1)));
+            Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 1, 31)));
+            Assert.Equal(new DateTime(2018, 2, 28), monthly.Next(new DateTime(2018, 2, 1)));
+            Assert.Equal(new DateTime(2018, 3, 28), monthly.Next(new DateTime(2018, 3, 1)));
+            Assert.Equal(new DateTime(2018, 4, 25), monthly.Next(new DateTime(2018, 4, 1)));
+            Assert.Equal(new DateTime(2018, 5, 30), monthly.Next(new DateTime(2018, 5, 1)));
+            
+            Assert.Null(monthly.Next(new DateTime(2018, 5, 31)));
+            Assert.Null(monthly.Next(new DateTime(2018, 6, 1)));
+            Assert.Null(monthly.Next(new DateTime(2020, 2, 1)));
+
+            Assert.Equal(new DateTime(2018, 1, 31), monthly.Previous(new DateTime(2018, 2, 1)));
+            Assert.Equal(new DateTime(2018, 2, 28), monthly.Previous(new DateTime(2018, 3, 1)));
+            Assert.Equal(new DateTime(2018, 3, 28), monthly.Previous(new DateTime(2018, 4, 1)));
+            Assert.Equal(new DateTime(2018, 4, 25), monthly.Previous(new DateTime(2018, 5, 1)));
+            Assert.Equal(new DateTime(2018, 5, 30), monthly.Previous(new DateTime(2018, 6, 1)));
+            Assert.Equal(new DateTime(2018, 5, 30), monthly.Previous(new DateTime(2019, 6, 1)));
+            Assert.Equal(new DateTime(2018, 5, 30), monthly.Previous(new DateTime(2020, 8, 1)));
+            Assert.Equal(new DateTime(2018, 5, 30), monthly.Previous(new DateTime(2021, 10, 13)));
+
+            Assert.Null(monthly.Previous(new DateTime(2018, 1, 1)));
+            Assert.Null(monthly.Previous(new DateTime(2017, 6, 1)));
+        }
     }
 }
 
