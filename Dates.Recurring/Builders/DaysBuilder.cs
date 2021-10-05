@@ -8,6 +8,7 @@ namespace Dates.Recurring.Builders
         private int _days;
         private DateTime _starting;
         private DateTime? _ending;
+        private int? _endingAfter;
         private Day _includeDays = Day.SUNDAY | Day.MONDAY | Day.TUESDAY | Day.WEDNESDAY | Day.THURSDAY | Day.FRIDAY | Day.SATURDAY;
 
         public DaysBuilder(int days, DateTime starting)
@@ -22,6 +23,12 @@ namespace Dates.Recurring.Builders
             return this;
         }
 
+        public DaysBuilder EndingAfter(int endingAfter)
+        {
+            _endingAfter = endingAfter;
+            return this;
+        }
+
         public DaysBuilder Including(Day includeDays)
         {
             _includeDays = includeDays;
@@ -30,7 +37,7 @@ namespace Dates.Recurring.Builders
 
         public Daily Build()
         {
-            return new Daily(_days, _includeDays, _starting, _ending);
+            return new Daily(_days, _includeDays, _starting, _ending, _endingAfter);
         }
     }
 }

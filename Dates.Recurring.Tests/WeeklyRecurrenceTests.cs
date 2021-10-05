@@ -193,5 +193,40 @@ namespace Dates.Recurring.Tests
 
             Assert.Null(weekly.Previous(new DateTime(2018, 2, 25)));
         }
+
+        [Fact]
+        public void Weekly_EveryWeek_EndingAfter()
+        {
+            // Arrange.
+            IRecurring weekly = Recurs
+                .Starting(new DateTime(2015, 1, 1)) // Thursday
+                .Every(1)
+                .Weeks()
+                .OnDays(Day.TUESDAY | Day.FRIDAY)
+                .EndingAfter(5)
+                .Build();
+
+            // Act.
+
+            // Assert.
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Next(new DateTime(2014, 1, 1)));
+            Assert.Equal(new DateTime(2015, 1, 6), weekly.Next(new DateTime(2015, 1, 2)));
+            Assert.Equal(new DateTime(2015, 1, 9), weekly.Next(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 13), weekly.Next(new DateTime(2015, 1, 9)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Next(new DateTime(2015, 1, 13)));
+
+            Assert.Null(weekly.Next(new DateTime(2015, 1, 20)));
+
+            Assert.Equal(new DateTime(2015, 1, 2), weekly.Previous(new DateTime(2015, 1, 6)));
+            Assert.Equal(new DateTime(2015, 1, 6), weekly.Previous(new DateTime(2015, 1, 9)));
+            Assert.Equal(new DateTime(2015, 1, 9), weekly.Previous(new DateTime(2015, 1, 13)));
+            Assert.Equal(new DateTime(2015, 1, 13), weekly.Previous(new DateTime(2015, 1, 16)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2015, 3, 16)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2019, 12, 16)));
+            Assert.Equal(new DateTime(2015, 1, 16), weekly.Previous(new DateTime(2020, 3, 16)));
+
+            Assert.Null(weekly.Previous(new DateTime(2014, 1, 20)));
+            Assert.Null(weekly.Previous(new DateTime(2015, 1, 2)));
+        }
     }
 }

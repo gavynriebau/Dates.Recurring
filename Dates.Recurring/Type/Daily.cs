@@ -7,7 +7,7 @@ namespace Dates.Recurring.Type
     {
         public Day IncludeDays { get; set; } 
 
-        public Daily(int days, Day includeDays, DateTime starting, DateTime? ending) : base(days, starting, ending)
+        public Daily(int days, Day includeDays, DateTime starting, DateTime? ending, int? endingAfter) : base(days, starting, ending, endingAfter)
         {
             IncludeDays = includeDays;
         }
@@ -15,6 +15,7 @@ namespace Dates.Recurring.Type
         public override DateTime? Next(DateTime after)
         {
             var next = Starting;
+            int iterations = 0;
 
             if (after.Date < Starting.Date)
             {
@@ -24,6 +25,7 @@ namespace Dates.Recurring.Type
             while ((next.Ticks - after.Ticks) <= TimeSpan.TicksPerSecond)
             {
                 next = MoveXDaysForward(next);
+                iterations++;
             }
 
             if (Ending.HasValue && next.Date > Ending.Value.Date)
@@ -31,11 +33,17 @@ namespace Dates.Recurring.Type
                 return null;
             }
 
+            if (EndingAfter.HasValue && iterations > EndingAfter)
+            {
+                return null;
+            }
+            
             return next;
         }
 
         public override DateTime? Previous(DateTime before)
         {
+            int iterations = 0;
             if (before.Date <= Starting.Date)
             {
                 return null;
@@ -51,8 +59,14 @@ namespace Dates.Recurring.Type
 
             while (next.Ticks < before.Ticks)
             {
+                if (EndingAfter.HasValue && iterations >= EndingAfter)
+                {
+                    break;
+                }
+
                 last = next;
                 next = MoveXDaysForward(next);
+                iterations ++;
             }
 
             return last.Value;
